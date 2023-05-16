@@ -1,4 +1,5 @@
 import { ethers } from "./ethers-5.7.esm.min.js";
+import { abi, contractAddress } from "./constants.js";
 
 let connectEl = document.getElementById("btnconnect");
 let fundEl = document.getElementById("fundbtn");
@@ -20,4 +21,14 @@ async function connect() {
   }
 }
 
-async function fund() {}
+async function fund() {
+  if (typeof window.ethereum != "undefined") {
+    console.log("Wallet is connected.");
+    const provider = new ethers.providers.Web3Provider(window.ethereum); // ethers --> provedores --> Provedor Web3 --> aquele de window.ethereum
+    const signer = provider.getSigner();
+    /*For your contract to be interacted with, you need its ABI and its ADDRESS; */
+    /*Grab the ABI of the smart contract's json in the root project and then add it to the js file (export it and import it in index.js) */
+    /*Run a separate terminal node in the project's folder (of the smart contract), save it in a js file and then export it and import it*/
+    const contract = new ethers.Contract(contractAddress, abi, signer);
+  }
+}
