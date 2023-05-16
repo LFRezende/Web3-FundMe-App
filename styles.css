@@ -101,18 +101,21 @@ body {
   background: linear-gradient(rgb(26, 194, 26), white);
 }
 
-.btn-top {
-  width: 90px;
-  padding: 5px 3px;
+.headOpt {
+  text-align: center;
+  width: 75px;
   border: 1px solid white;
   border-radius: 20px;
-  color: black;
+  color: white;
   font-weight: bold;
-  background-color: white;
+  background-color: black;
+  padding-top: 3px;
+  text-shadow: 0 0 2px white;
 }
 
-.btn-top:hover {
-  color: white;
-  background-color: black;
+.headOpt:hover {
+  color: black;
+  background-color: white;
   border: 1px solid white;
+  text-shadow: 0 0 2px black;
 }
