@@ -4,10 +4,44 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Happy+Monkey&family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Web3 App</title>
   </head>
   <body>
-    <button onclick="connect()" id="btnconnect">Connect</button>
+    <div id="hero">
+      <div class="headBand">
+        <button class="btn-top">test1</button>
+        <button class="btn-top">test1</button>
+        <button class="btn-top">test1</button>
+      </div>
+      <h1>Web3 App - Crowdfunding Application</h1>
+      <h2>Finance this project!</h2>
+      <h3>Developed by Luis Felipe Rezende</h3>
+      <div>
+        <h4>Connect your metamask!</h4>
+        <div class="btn-div">
+          <button class="btn" onclick="connect()" id="btnconnect">
+            Connect
+          </button>
+          <div id="No-MM"></div>
+        </div>
+      </div>
+    </div>
+    <div class="xtemp">
+      <div class="fund">
+        <p id="fundtext">Fund the project (in ETH)</p>
+        <input type="Type in the amount you wish to fund" />
+        <button class="btn" id="fundbtn" onclick="">Fund</button>
+      </div>
+    </div>
+    <div id="end"></div>
+
     <script src="index.js"></script>
   </body>
 </html>
