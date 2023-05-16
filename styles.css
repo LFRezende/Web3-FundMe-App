@@ -22,9 +22,22 @@ h4 {
   text-shadow: 0px 0px 3px black;
 }
 
-.headBand {
-  background: linear-gradient(black, rgb(9, 0, 22));
-  border: 1px solid white;
+.headBandTop {
+  background: linear-gradient(black, rgb(30, 255, 83));
+  display: flex;
+  justify-content: space-evenly;
+  text-shadow: 0 0 5px white;
+  width: 100%;
+  padding-top: 60px;
+  padding-bottom: 5px;
+  height: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+}
+.headBandBottom {
+  background: linear-gradient(rgb(30, 255, 83), black);
+  border-bottom: 2px solid white;
   display: flex;
   justify-content: space-evenly;
   text-shadow: 0 0 5px white;
