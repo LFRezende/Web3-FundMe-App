@@ -29,3 +29,21 @@ Doesn't work anymore. You have to remove the onclick portion, and refactor it in
 const connectButton = document.getElementById("btn");
 connectButton.onclick = connect;
 '''
+
+## Connecting to the Smart Contract
+
+After checking if MM is on by nesting the upcoming commands within this following "if" statement:
+
+'''
+if (typeof window.ethereum !== "undefined"){
+
+}
+'''
+Then proceed and add the following:
+
+'''
+if (typeof window.ethereum !== "undefined"){
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const signer = providers.getSigner();
+}
+'''
