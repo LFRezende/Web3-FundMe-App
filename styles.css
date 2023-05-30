@@ -132,3 +132,8 @@ body {
   border: 1px solid white;
   text-shadow: 0 0 2px black;
 }
+
+#FundDenied {
+  margin-top: 10px;
+  font-size: 10px;
+}

@@ -4,6 +4,8 @@ import { abi, contractAddress } from "./constants.js";
 let connectEl = document.getElementById("btnconnect");
 let fundEl = document.getElementById("fundbtn");
 let noMM = document.getElementById("No-MM");
+let noFundEl = document.getElementById("FundDenied");
+let inputFund = document.getElementById("fundBar");
 
 connectEl.onclick = connect;
 fundEl.onclick = fund;
@@ -35,10 +37,22 @@ async function fund() {
       const txResponse = await contract.fund({
         value: ethers.utils.parseEther(ethAmount),
       });
+      await listenForTransactionMine(txResponse, provider);
+      console.log("Done!");
     } catch (error) {
       console.log(error);
+      noFundEl.innerHTML = "- User Rejected Transaction ⚠️ - ";
     }
 
-    /* Observação: Se fechar o nó, resete a conta na Metamask (APENAS EM SERVIDORES LOCAIS) */
+    /* Observação: Se fechar o nó do hardhat, resete a conta na Metamask (APENAS EM SERVIDORES LOCAIS) */
+  }
+
+  function listenForTransactionMine(txResponse, provider) {
+    console.log(`Mining ${txResponse.hash} ...`);
+    // Ethers docs: Calls just once when the eventName event fires.
+    // provider.once receives a hash, and then inputs a txReceipt into the anon function
+    provider.once(txResponse.hash, (txReceipt) => {
+      console.log(`Completed with ${txReceipt.confirmations} confirmations.`);
+    });
   }
 }
