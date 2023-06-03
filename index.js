@@ -3,12 +3,14 @@ import { abi, contractAddress } from "./constants.js";
 
 let connectEl = document.getElementById("btnconnect");
 let fundEl = document.getElementById("fundbtn");
+let balanceEl = document.getElementById("balancebtn");
 let noMM = document.getElementById("No-MM");
 let noFundEl = document.getElementById("FundDenied");
 let inputFund = document.getElementById("fundBar");
 
 connectEl.onclick = connect;
 fundEl.onclick = fund;
+balanceEl.onclick = cttBalance;
 
 async function connect() {
   if (typeof window.ethereum != "undefined") {
@@ -24,7 +26,7 @@ async function connect() {
 }
 
 async function fund() {
-  const ethAmount = "0.1";
+  const ethAmount = inputFund.value;
   if (typeof window.ethereum != "undefined") {
     console.log("Wallet is connected.");
     const provider = new ethers.providers.Web3Provider(window.ethereum); // ethers --> provedores --> Provedor Web3 --> aquele de window.ethereum
@@ -39,20 +41,36 @@ async function fund() {
       });
       await listenForTransactionMine(txResponse, provider);
       console.log("Done!");
+      noFundEl.innerHTML = "";
     } catch (error) {
       console.log(error);
-      noFundEl.innerHTML = "- User Rejected Transaction ⚠️ - ";
+      noFundEl.innerHTML = "- Rejected Transaction ⚠️ - ";
     }
 
     /* Observação: Se fechar o nó do hardhat, resete a conta na Metamask (APENAS EM SERVIDORES LOCAIS) */
   }
+}
 
-  function listenForTransactionMine(txResponse, provider) {
-    console.log(`Mining ${txResponse.hash} ...`);
-    // Ethers docs: Calls just once when the eventName event fires.
-    // provider.once receives a hash, and then inputs a txReceipt into the anon function
+async function cttBalance() {
+  if (typeof window.ethereum != "undefined") {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const bal = await provider.getBalance(contractAddress);
+    console.log(`Total balance: ${ethers.utils.formatEther(bal)}`);
+  }
+}
+
+// Function to return if the transaction has been mined!
+function listenForTransactionMine(txResponse, provider) {
+  console.log(`Mining ${txResponse.hash} ...`);
+  // Ethers docs: Calls just once when the eventName event fires.
+  // provider.once receives a hash, and then inputs a txReceipt into the anon function
+
+  // We return a promise saying: only return successfull (resolve) if we get the transaction Receipt.
+  // The provider injects a tx Receipt when it gets a txResponse.hash .
+  return new Promise((resolve, reject) => {
     provider.once(txResponse.hash, (txReceipt) => {
       console.log(`Completed with ${txReceipt.confirmations} confirmations.`);
+      resolve();
     });
-  }
+  });
 }

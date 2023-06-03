@@ -142,3 +142,7 @@ if (typeof window.ethereum != "undefined") {
       noFundEl.innerHTML = "- User Rejected Transaction ⚠️ - ";
     }
 ```
+
+## Error "Nonce TOO high"
+
+Go to your metamask, reset your account (if you have rebooted the hardhat node).
