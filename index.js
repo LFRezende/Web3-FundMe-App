@@ -4,6 +4,7 @@ import { abi, contractAddress } from "./constants.js";
 let connectEl = document.getElementById("btnconnect");
 let fundEl = document.getElementById("fundbtn");
 let balanceEl = document.getElementById("balancebtn");
+let withdrawEl = document.getElementById("withdrawbtn");
 let noMM = document.getElementById("No-MM");
 let noFundEl = document.getElementById("FundDenied");
 let inputFund = document.getElementById("fundBar");
@@ -11,6 +12,7 @@ let inputFund = document.getElementById("fundBar");
 connectEl.onclick = connect;
 fundEl.onclick = fund;
 balanceEl.onclick = cttBalance;
+withdrawEl.onclick = withdrawBalance;
 
 async function connect() {
   if (typeof window.ethereum != "undefined") {
@@ -73,4 +75,19 @@ function listenForTransactionMine(txResponse, provider) {
       resolve();
     });
   });
+}
+
+async function withdrawBalance() {
+  if (typeof window.ethereum != "undefined") {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, abi, signer);
+
+    try {
+      const txResponse = await contract.withdraw();
+      await listenForTransactionMine(txResponse, provider);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
